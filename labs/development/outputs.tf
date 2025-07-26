@@ -1,31 +1,19 @@
-output "account_id" {
-  description = "The AWS Account ID"
-  value       = data.aws_caller_identity.current.account_id
-  sensitive   = true
-}
-
-output "region_name" {
-  description = "The current AWS region"
-  value       = data.aws_region.current.name
-}
-
-output "available_azs" {
-  description = "List of available AZs"
-  value       = data.aws_availability_zones.available.names
-}
-
 output "vpc_id" {
-  description = "ID of the development VPC"
-  value       = aws_vpc.development.id
+  description = "ID of the created VPC"
+  value       = aws_vpc.production.id
 }
 
-output "combined_info" {
-  description = "Combined region and account information"
-  value       = "${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
-  sensitive   = true
+output "subnet_id" {
+  description = "ID of the created subnet"
+  value       = aws_subnet.private.id
 }
 
-output "vpc_created_by" {
-  description = "The CreatedBy tag from the development VPC"
-  value       = aws_vpc.development.tags["CreatedBy"]
+output "availability_zone" {
+  description = "Availability zone of the subnet"
+  value       = aws_subnet.private.availability_zone
+}
+
+output "account_info" {
+  description = "AWS Account Information"
+  value       = "${data.aws_caller_identity.current.account_id} (${data.aws_region.current.name})"
 }
